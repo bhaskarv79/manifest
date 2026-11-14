@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  QEMU (Armv7) with OP-TEE SPI-NOR secure storage on the secure SPI-NOR
+  flash of QEMU "virt,spi=secure" (PL022 + 32 MiB RPMC capable w25r256jv).
+  Same as default.xml with optee_os, optee_test, build and QEMU taken from
+  the SPI-NOR development branches.
+
+    repo init -u https://github.com/bhaskarv79/manifest.git -b spinor -m spinor.xml
+    repo sync
+    cd build
+    make toolchains
+    make run
+-->
+<manifest>
+        <include name="default.xml" />
+
+        <remove-project name="OP-TEE/optee_os.git" />
+        <remove-project name="OP-TEE/optee_test.git" />
+        <remove-project name="OP-TEE/build.git" />
+        <remove-project name="qemu/qemu.git" />
+
+        <project path="optee_os"             name="bhaskarv79/optee_os.git"               revision="spinor" />
+        <project path="optee_test"           name="bhaskarv79/optee_test.git"             revision="spinor" />
+        <project path="build"                name="bhaskarv79/build.git"                  revision="spinor">
+                <linkfile src="qemu.mk" dest="build/Makefile" />
+        </project>
+        <project path="qemu"                 name="bhaskarv79/qemu.git"                   revision="spinor-v10.0" clone-depth="1" />
+</manifest>
