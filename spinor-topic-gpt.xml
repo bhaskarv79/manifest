@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  PR 1 + GUID partition table parser.
+
+  Same as spinor.xml, with optee_os taken from branch topic/gpt of
+  bhaskarv79/optee_os.
+
+    repo init -u https://github.com/bhaskarv79/manifest.git -b spinor -m spinor-topic-gpt.xml
+    repo sync
+    cd build
+    make toolchains
+    make run SPINOR=sim
+
+  This branch has no QEMU SPI-NOR platform code, so it runs on the SPI-NOR
+  flash simulator of optee_os (SPINOR=sim): the store is in secure RAM and
+  is lost at each boot. In the normal world, 'xtest 1001' runs the self
+  tests and 'xtest _60' the storage tests.
+-->
+<manifest>
+        <include name="spinor.xml" />
+
+        <extend-project name="bhaskarv79/optee_os.git" revision="topic/gpt" />
+</manifest>

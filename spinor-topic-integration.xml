@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  All SPI-NOR pull requests stacked: driver, DT, GPT, RPMC, QEMU platform,
+  NS access and PL022 tracing, on the secure SPI-NOR flash of QEMU
+  "virt,spi=secure" with RPMC rollback protection.
+
+  Same as spinor.xml, with optee_os taken from branch topic/integration of
+  bhaskarv79/optee_os.
+
+    repo init -u https://github.com/bhaskarv79/manifest.git -b spinor -m spinor-topic-integration.xml
+    repo sync
+    cd build
+    make toolchains
+    make run
+-->
+<manifest>
+        <include name="spinor.xml" />
+
+        <extend-project name="bhaskarv79/optee_os.git" revision="topic/integration" />
+</manifest>
